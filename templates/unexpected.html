@@ -1,0 +1,86 @@
+<style>
+html {
+  font-size: 70%;
+}
+.container {
+    width: 100%;
+    color: #2f3947;
+    display: block;
+    position:absolute;
+    top:50%;
+    left:50%;
+     transform: translate(-25%, -25%);
+}
+.in-contain{
+    width:70%;
+    display:inline;
+}
+
+</style>
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Disposable Income Calculator</title>
+</head>
+<body class="loggedin">
+  <nav class="navbar fixed-top navbar-light" style="background-color: #167e56; font-size:30px;">
+    <div class="container-fluid"><ul class="nav nav-pills">
+    <li class="nav-item">
+			<a class="nav-link" style="color: #000000;" href="{{ url_for('calculator') }}">Home</a>
+    </li>
+      <li class="nav-item">
+        <a class="nav-link active" style="color: #000000;background-color: #e3f2fd;" aria-current="page" href="{{url_for('unexpected')}}">Unexpected Expense</a>
+      </li>
+      <li class="nav-item">
+			<a class="nav-link" style="color: #ffffff; text-align: right;" href="{{ url_for('logout') }}">Logout</a>
+    </li>
+
+		</ul>
+      </div>
+  </nav>
+<div class="container">
+
+    <h2 style="font-size:4.5rem;">Unexpected Expense</h2>
+
+
+    <form action="{{ url_for('unexpected') }}" method="post">
+    <div class="input-group mb-3" style="width: 500px;">
+        <span class="input-group-text" id="basic-addon1">$</span>
+       <input type="number" style="font-size:2.5rem;" class="form-control" name="unex" id="unex" placeholder="Input the amount"></div>
+
+    <div class="in-contain">
+    <div class="form-row" style="width: 500px;font-size:12rem;">
+
+      <label for="inputDay">Day</label>
+      <input type="number" class="form-control" name="inputDay" id="inputDay">
+
+      <label for="inputMonth">Month</label>
+      <select name="inputMonth" id="inputMonth" class="form-control">
+          {% for data in month_data %}
+              <option value="{{ data }}">{{ data }}</option>
+              {% endfor %}
+
+
+      </select>
+      <label for="inputYear">Year</label>
+      <input type="number" class="form-control" name="inputYear" id="inputYear">
+  </div>
+</div>
+
+            <span><input type="submit" name="change" class="btn btn-success" value="Submit"></span>
+        </form>
+        <div class="inform" style="display:block;"><h2>Your unexpected expense:</h2>
+            <p>On {{ inday[3] }}, {{ inmonth[3] }} {{ inyear[3] }}, you spent ${{ unexin[3] }}</p>
+            <p>On {{ inday[2] }}, {{ inmonth[2] }} {{ inyear[2] }}, you spent ${{ unexin[2] }}</p>
+            <p>On {{ inday[1] }}, {{ inmonth[1] }} {{ inyear[1] }}, you spent ${{ unexin[1] }}</p>
+            <p>On {{ inday[0] }}, {{ inmonth[0] }} {{ inyear[0] }}, you spent ${{ unexin[0] }}</p>
+    </div>
+
+</div>
+</body>
+</html>
